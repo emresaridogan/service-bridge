@@ -1,0 +1,21 @@
+name: service_bridge_appsflyer
+description: AppsFlyer provider implementations for service_bridge.
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: ">=3.8.0 <4.0.0"
+  flutter: ">=3.29.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  service_bridge:
+    path: ../service_bridge
+  appsflyer_sdk: ^6.15.5
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  mocktail: ^1.0.4
+ 

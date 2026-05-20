@@ -1,0 +1,23 @@
+name: service_bridge_insider
+description: Insider provider implementations for service_bridge.
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: ">=3.8.0 <4.0.0"
+  flutter: ">=3.29.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  service_bridge:
+    path: ../service_bridge
+  # Insider SDK — replace with actual package name/version when available.
+  # The Insider Flutter SDK is typically provided via their documentation.
+  # insider_flutter: ^1.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  mocktail: 1.0.5
+ 

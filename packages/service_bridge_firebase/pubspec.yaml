@@ -1,0 +1,25 @@
+name: service_bridge_firebase
+description: Firebase provider implementations for service_bridge.
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: ">=3.8.0 <4.0.0"
+  flutter: ">=3.29.0"
+
+dependencies:
+  service_bridge:
+    path: ../service_bridge
+  firebase_analytics: 12.4.1
+  firebase_core: 4.9.0
+  firebase_crashlytics: 5.2.2
+  firebase_messaging: 16.2.2
+  firebase_remote_config: 6.5.1
+  flutter:
+    sdk: flutter
+ 
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  mocktail: 1.0.5
+ 

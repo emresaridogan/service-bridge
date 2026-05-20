@@ -1,0 +1,20 @@
+name: service_bridge
+description: >
+  A modular service management package that orchestrates third-party tools
+  (Firebase, Sentry, AppsFlyer, Insider, Huawei HMS) through unified contracts.
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: ">=3.8.0 <4.0.0"
+  flutter: ">=3.29.0"
+
+dependencies:
+  device_info_plus: 13.1.0
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  mocktail: 1.0.5

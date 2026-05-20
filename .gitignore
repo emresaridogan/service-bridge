@@ -1,0 +1,14 @@
+.dart_tool/
+.packages
+build/
+pubspec.lock
+*.iml
+.idea/
+.vscode/
+.DS_Store
+coverage/
+.flutter-plugins
+.flutter-plugins-dependencies
+
+# FVM Version Cache
+.fvm/
