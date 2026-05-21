@@ -10,8 +10,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  service_bridge:
-    path: ../service_bridge
+  service_bridge_core:
+    path: ../service_bridge_core
   appsflyer_sdk: ^6.15.5
 
 dev_dependencies:

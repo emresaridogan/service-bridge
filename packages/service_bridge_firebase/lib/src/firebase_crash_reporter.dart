@@ -1,4 +1,4 @@
-import 'package:service_bridge/service_bridge.dart';
+import 'package:service_bridge_core/service_bridge_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 
 /// Firebase Crashlytics implementation of [CrashReporter].

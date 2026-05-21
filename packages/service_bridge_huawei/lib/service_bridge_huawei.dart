@@ -4,5 +4,7 @@
 /// Replace the placeholder imports with actual Huawei SDK packages.
 library service_bridge_huawei;
 
+export 'package:service_bridge_core/service_bridge_core.dart';
+
 export 'src/huawei_push_provider.dart';
 export 'src/huawei_remote_config_provider.dart';

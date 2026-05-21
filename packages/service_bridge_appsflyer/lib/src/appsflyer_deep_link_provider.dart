@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:appsflyer_sdk/appsflyer_sdk.dart';
-import 'package:service_bridge/service_bridge.dart';
+import 'package:service_bridge_core/service_bridge_core.dart';
 
 /// AppsFlyer implementation of [DeepLinkProvider].
 ///

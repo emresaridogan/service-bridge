@@ -10,8 +10,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  service_bridge:
-    path: ../service_bridge
+  service_bridge_core:
+    path: ../service_bridge_core
   sentry_flutter: 9.20.0
 
 dev_dependencies:

@@ -1,4 +1,4 @@
-import 'package:service_bridge/service_bridge.dart';
+import 'package:service_bridge_core/service_bridge_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 

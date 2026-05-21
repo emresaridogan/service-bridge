@@ -4,6 +4,8 @@
 /// Replace the placeholder import with the actual Insider SDK dependency.
 library service_bridge_insider;
 
+export 'package:service_bridge_core/service_bridge_core.dart';
+
 export 'src/insider_analytics_provider.dart';
 export 'src/insider_push_provider.dart';
 export 'src/insider_user_tracker.dart';

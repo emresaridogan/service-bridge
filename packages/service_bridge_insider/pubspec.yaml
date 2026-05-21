@@ -10,8 +10,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  service_bridge:
-    path: ../service_bridge
+  service_bridge_core:
+    path: ../service_bridge_core
   # Insider SDK — replace with actual package name/version when available.
   # The Insider Flutter SDK is typically provided via their documentation.
   # insider_flutter: ^1.0.0

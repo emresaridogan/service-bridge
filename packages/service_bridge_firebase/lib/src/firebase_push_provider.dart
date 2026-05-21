@@ -1,4 +1,4 @@
-import 'package:service_bridge/service_bridge.dart';
+import 'package:service_bridge_core/service_bridge_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 /// Firebase Cloud Messaging implementation of [PushNotificationProvider].

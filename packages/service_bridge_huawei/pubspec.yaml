@@ -10,8 +10,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  service_bridge:
-    path: ../service_bridge
+  service_bridge_core:
+    path: ../service_bridge_core
   # Huawei HMS SDK — replace with actual package versions.
   # huawei_agconnect_remote_config: ^1.9.0
   # huawei_push: ^6.12.0
