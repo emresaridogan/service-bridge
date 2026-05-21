@@ -16,7 +16,7 @@ class HuaweiPushProvider implements PushNotificationProvider {
   final StreamController<NotificationMessage> _messageOpenedController = StreamController<NotificationMessage>.broadcast();
 
   @override
-  String get providerId => 'huawei';
+  String get providerId => SBProvider.huawei.id;
 
   @override
   bool get isInitialized => _initialized;

@@ -13,7 +13,7 @@ class SentryLoggerProvider implements LoggerProvider {
   bool _initialized = false;
 
   @override
-  String get providerId => 'sentry_logger';
+  String get providerId => SBProvider.sentryLogger.id;
 
   @override
   bool get isInitialized => _initialized;
@@ -32,7 +32,7 @@ class SentryLoggerProvider implements LoggerProvider {
   Future<void> log(LogLevel level, String message, {Map<String, dynamic>? extras, Object? error, StackTrace? stackTrace}) async {
     if (error != null && stackTrace != null) {
       if (kDebugMode) {
-        debugPrint('Capturing error in Sentry: $error\n$stackTrace');
+        debugPrint('[ServiceBridge] Capturing error in Sentry: $error\n$stackTrace');
       }
 
       await Sentry.addBreadcrumb(Breadcrumb(message: message, level: _mapLevel(level), category: 'log', data: extras));

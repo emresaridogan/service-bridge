@@ -15,7 +15,7 @@ class AppsFlyerUserTracker implements UserTracker {
   bool _initialized = false;
 
   @override
-  String get providerId => 'appsflyer';
+  String get providerId => SBProvider.appsflyer.id;
 
   @override
   bool get isInitialized => _initialized;
@@ -31,10 +31,7 @@ class AppsFlyerUserTracker implements UserTracker {
   }
 
   @override
-  Future<void> identifyUser(
-    String userId, {
-    Map<String, dynamic>? attributes,
-  }) async {
+  Future<void> identifyUser(String userId, {Map<String, dynamic>? attributes}) async {
     _sdk.setCustomerUserId(userId);
     if (attributes != null) {
       _sdk.setAdditionalData(attributes);
@@ -47,10 +44,7 @@ class AppsFlyerUserTracker implements UserTracker {
   }
 
   @override
-  Future<void> trackEvent(
-    String event, {
-    Map<String, dynamic>? parameters,
-  }) async {
+  Future<void> trackEvent(String event, {Map<String, dynamic>? parameters}) async {
     await _sdk.logEvent(event, parameters ?? {});
   }
 

@@ -12,7 +12,7 @@ class FirebaseLoggerProvider implements LoggerProvider {
   bool _initialized = false;
 
   @override
-  String get providerId => 'firebase_logger';
+  String get providerId => SBProvider.firebaseLogger.id;
 
   @override
   bool get isInitialized => _initialized;

@@ -7,13 +7,13 @@ import 'package:service_bridge/src/contracts/remote_config_provider.dart';
 import 'package:service_bridge/src/contracts/user_tracker.dart';
 import 'package:service_bridge/src/core/enums.dart';
 
-/// Configuration for `ServiceManager`.
+/// Configuration for `ServiceBridge`.
 ///
 /// Defines which providers are registered for each service
 /// category and which ones are active by default.
-class ServiceManagerConfig {
-  /// Creates a [ServiceManagerConfig].
-  const ServiceManagerConfig({
+class ServiceBridgeConfig {
+  /// Creates a [ServiceBridgeConfig].
+  const ServiceBridgeConfig({
     this.crashReporters = const [],
     this.defaultCrashProviders = const {},
     this.analyticsProviders = const [],
@@ -36,16 +36,16 @@ class ServiceManagerConfig {
   /// All registered crash reporters.
   final List<CrashReporter> crashReporters;
 
-  /// Provider IDs that are active by default for crash reporting.
-  final Set<String> defaultCrashProviders;
+  /// Providers that are active by default for crash reporting.
+  final Set<SBProvider> defaultCrashProviders;
 
   // -- Analytics --
 
   /// All registered analytics providers.
   final List<AnalyticsProvider> analyticsProviders;
 
-  /// Provider IDs that are active by default for analytics.
-  final Set<String> defaultAnalyticsProviders;
+  /// Providers that are active by default for analytics.
+  final Set<SBProvider> defaultAnalyticsProviders;
 
   // -- Remote Config --
 
@@ -60,32 +60,32 @@ class ServiceManagerConfig {
   /// All registered push notification providers.
   final List<PushNotificationProvider> pushProviders;
 
-  /// Provider IDs that are active by default for push notifications.
-  final Set<String> defaultPushProviders;
+  /// Providers that are active by default for push notifications.
+  final Set<SBProvider> defaultPushProviders;
 
   // -- Logging --
 
   /// All registered logger providers.
   final List<LoggerProvider> loggerProviders;
 
-  /// Provider IDs that are active by default for logging.
-  final Set<String> defaultLogProviders;
+  /// Providers that are active by default for logging.
+  final Set<SBProvider> defaultLogProviders;
 
   // -- Deep Linking --
 
   /// All registered deep link providers.
   final List<DeepLinkProvider> deepLinkProviders;
 
-  /// Provider IDs that are active by default for deep linking.
-  final Set<String> defaultDeepLinkProviders;
+  /// Providers that are active by default for deep linking.
+  final Set<SBProvider> defaultDeepLinkProviders;
 
   // -- User Tracking --
 
   /// All registered user tracking providers.
   final List<UserTracker> userTrackers;
 
-  /// Provider IDs that are active by default for user tracking.
-  final Set<String> defaultUserTrackingProviders;
+  /// Providers that are active by default for user tracking.
+  final Set<SBProvider> defaultUserTrackingProviders;
 
   // -- Platform --
 

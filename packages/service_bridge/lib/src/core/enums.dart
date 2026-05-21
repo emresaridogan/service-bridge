@@ -45,3 +45,55 @@ enum PlatformType {
   /// Huawei Mobile Services (for Huawei/Honor devices without GMS).
   hms,
 }
+
+/// Built-in provider identifiers for use in [ServiceBridgeConfig] and
+/// manager `only`/`exclude` parameters.
+///
+/// Use [id] to get the underlying string value when needed.
+///
+/// Custom providers not listed here should pass their own string ID directly.
+enum SBProvider {
+  // -- Firebase --
+
+  /// Firebase Crashlytics, Analytics, Remote Config and Push.
+  firebase('firebase'),
+
+  /// Firebase Crashlytics-based logger.
+  firebaseLogger('firebase_logger'),
+
+  // -- Sentry --
+
+  /// Sentry crash reporter.
+  sentry('sentry'),
+
+  /// Sentry breadcrumb/event logger.
+  sentryLogger('sentry_logger'),
+
+  // -- AppsFlyer --
+
+  /// AppsFlyer analytics, deep links and user tracking.
+  appsflyer('appsflyer'),
+
+  // -- Insider --
+
+  /// Insider analytics, push and user tracking.
+  insider('insider'),
+
+  // -- Huawei --
+
+  /// Huawei Push Kit and Remote Config.
+  huawei('huawei');
+
+  const SBProvider(this.id);
+
+  /// The underlying string identifier matched against [BaseServiceProvider.providerId].
+  final String id;
+
+  /// Providers that require Google Mobile Services (Firebase).
+  static const _firebaseDependentProviders = {firebase, firebaseLogger};
+
+  /// Whether this provider requires Google Mobile Services.
+  ///
+  /// Firebase-dependent providers cannot be used on HMS (Huawei) devices.
+  bool get isFirebaseDependent => _firebaseDependentProviders.contains(this);
+}

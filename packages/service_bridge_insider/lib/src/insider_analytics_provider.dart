@@ -11,7 +11,7 @@ class InsiderAnalyticsProvider implements AnalyticsProvider {
   bool _initialized = false;
 
   @override
-  String get providerId => 'insider';
+  String get providerId => SBProvider.insider.id;
 
   @override
   bool get isInitialized => _initialized;

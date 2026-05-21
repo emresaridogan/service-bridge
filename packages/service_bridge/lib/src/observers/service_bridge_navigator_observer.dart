@@ -3,9 +3,9 @@ import 'package:flutter/widgets.dart';
 
 /// A [NavigatorObserver] that automatically logs screen views
 /// to all active analytics providers via [AnalyticsManager].
-class ServiceManagerNavigatorObserver extends NavigatorObserver {
-  /// Creates a [ServiceManagerNavigatorObserver].
-  ServiceManagerNavigatorObserver({
+class ServiceBridgeNavigatorObserver extends NavigatorObserver {
+  /// Creates a [ServiceBridgeNavigatorObserver].
+  ServiceBridgeNavigatorObserver({
     required AnalyticsManager analyticsManager,
     this.nameExtractor = _defaultNameExtractor,
     this.routeFilter = _defaultRouteFilter,

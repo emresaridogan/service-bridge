@@ -15,11 +15,10 @@ class AppsFlyerDeepLinkProvider implements DeepLinkProvider {
 
   final AppsflyerSdk _sdk;
   bool _initialized = false;
-  final StreamController<Uri> _deepLinkController =
-      StreamController<Uri>.broadcast();
+  final StreamController<Uri> _deepLinkController = StreamController<Uri>.broadcast();
 
   @override
-  String get providerId => 'appsflyer';
+  String get providerId => SBProvider.appsflyer.id;
 
   @override
   bool get isInitialized => _initialized;

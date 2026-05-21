@@ -14,7 +14,7 @@ class FirebaseAnalyticsProvider implements AnalyticsProvider {
   FirebaseAnalytics? get analyticsInstance => _analytics;
 
   @override
-  String get providerId => 'firebase';
+  String get providerId => SBProvider.firebase.id;
 
   @override
   bool get isInitialized => _initialized;

@@ -6,18 +6,18 @@
 /// ```dart
 /// import 'package:service_bridge/service_bridge.dart';
 ///
-/// await ServiceManager.initialize(
-///   ServiceManagerConfig(
+/// await ServiceBridge.initialize(
+///   ServiceBridgeConfig(
 ///     crashReporters: [/* your providers */],
 ///     defaultCrashProviders: {'firebase', 'sentry'},
 ///   ),
 /// );
 ///
 /// // Report errors to all default providers
-/// ServiceManager.instance.crash.reportError(error, stackTrace);
+/// ServiceBridge.instance.crash.reportError(error, stackTrace);
 ///
 /// // Log events to specific providers
-/// ServiceManager.instance.analytics.logEvent('purchase', only: {'firebase'});
+/// ServiceBridge.instance.analytics.logEvent('purchase', only: {'firebase'});
 /// ```
 library;
 
@@ -34,8 +34,8 @@ export 'src/contracts/user_tracker.dart';
 export 'src/core/enums.dart';
 export 'src/core/platform_detector.dart';
 export 'src/core/provider_resolver.dart';
-export 'src/core/service_manager.dart';
-export 'src/core/service_manager_config.dart';
+export 'src/core/service_bridge.dart';
+export 'src/core/service_bridge_config.dart';
 // Managers
 export 'src/managers/analytics_manager.dart';
 export 'src/managers/crash_manager.dart';
@@ -48,4 +48,4 @@ export 'src/managers/user_tracking_manager.dart';
 export 'src/models/deep_link_params.dart';
 export 'src/models/notification_message.dart';
 // Observers
-export 'src/observers/service_manager_navigator_observer.dart';
+export 'src/observers/service_bridge_navigator_observer.dart';

@@ -16,7 +16,7 @@ class HuaweiRemoteConfigProvider implements RemoteConfigProvider {
   bool _initialized = false;
 
   @override
-  String get providerId => 'huawei';
+  String get providerId => SBProvider.huawei.id;
 
   @override
   bool get isInitialized => _initialized;

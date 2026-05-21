@@ -1,6 +1,8 @@
 import 'package:service_bridge/src/contracts/base_service_provider.dart';
+import 'package:service_bridge/src/core/enums.dart';
 import 'package:service_bridge/src/core/platform_detector.dart';
-import 'package:service_bridge/src/core/service_manager_config.dart';
+import 'package:service_bridge/src/core/sb_logger.dart';
+import 'package:service_bridge/src/core/service_bridge_config.dart';
 import 'package:service_bridge/src/managers/analytics_manager.dart';
 import 'package:service_bridge/src/managers/crash_manager.dart';
 import 'package:service_bridge/src/managers/deep_link_manager.dart';
@@ -17,8 +19,8 @@ import 'package:service_bridge/src/managers/user_tracking_manager.dart';
 ///
 /// ```dart
 /// // Initialize once at app startup
-/// await ServiceManager.initialize(
-///   ServiceManagerConfig(
+/// await ServiceBridge.initialize(
+///   ServiceBridgeConfig(
 ///     crashReporters: [
 ///       FirebaseCrashReporter(),
 ///       SentryCrashReporter(dsn: '...'),
@@ -29,11 +31,11 @@ import 'package:service_bridge/src/managers/user_tracking_manager.dart';
 /// );
 ///
 /// // Use throughout the app
-/// ServiceManager.instance.crash.reportError(error, stackTrace);
-/// ServiceManager.instance.analytics.logEvent('purchase');
+/// ServiceBridge.instance.crash.reportError(error, stackTrace);
+/// ServiceBridge.instance.analytics.logEvent('purchase');
 /// ```
-class ServiceManager {
-  ServiceManager._({
+class ServiceBridge {
+  ServiceBridge._({
     required this.crash,
     required this.analytics,
     required this.remoteConfig,
@@ -44,20 +46,20 @@ class ServiceManager {
     required this.platform,
   });
 
-  static ServiceManager? _instance;
+  static ServiceBridge? _instance;
 
   /// The singleton instance. Throws if [initialize] has not been called.
-  static ServiceManager get instance {
+  static ServiceBridge get instance {
     if (_instance == null) {
       throw StateError(
-        'ServiceManager has not been initialized. '
-        'Call ServiceManager.initialize() first.',
+        'ServiceBridge has not been initialized. '
+        'Call ServiceBridge.initialize() first.',
       );
     }
     return _instance!;
   }
 
-  /// Whether the service manager has been initialized.
+  /// Whether the service bridge has been initialized.
   static bool get isInitialized => _instance != null;
 
   /// Crash reporting manager.
@@ -84,7 +86,7 @@ class ServiceManager {
   /// Platform detector for GMS/HMS differentiation.
   final PlatformDetector platform;
 
-  /// Initialize the service manager with the given configuration.
+  /// Initialize the service bridge with the given configuration.
   ///
   /// This will:
   /// 1. Create the [PlatformDetector] and detect the platform
@@ -93,17 +95,18 @@ class ServiceManager {
   /// 4. Set up the singleton instance
   ///
   /// Should be called once at app startup, before any service calls.
-  static Future<void> initialize(ServiceManagerConfig config) async {
+  static Future<void> initialize(ServiceBridgeConfig config) async {
     if (_instance != null) {
       throw StateError(
-        'ServiceManager has already been initialized. '
+        'ServiceBridge has already been initialized. '
         'Call dispose() before re-initializing.',
       );
     }
 
     // 1. Platform detection
     final platformDetector = PlatformDetector(platformOverride: config.platformOverride);
-    await platformDetector.detect();
+    final detectedPlatform = await platformDetector.detect();
+    SBLogger.info('Platform detected: ${detectedPlatform.name}');
 
     // 2. Collect all unique providers and initialize them
     final allProviders = <BaseServiceProvider>{
@@ -117,28 +120,72 @@ class ServiceManager {
       ...config.userTrackers,
     };
 
-    await Future.wait(allProviders.map((p) => p.initialize()));
+    // 3. Validate: Firebase-dependent providers cannot be used on HMS
+    if (detectedPlatform == PlatformType.hms) {
+      final incompatible = allProviders.where((p) {
+        return SBProvider.values.any(
+          (sp) => sp.isFirebaseDependent && sp.id == p.providerId,
+        );
+      }).toList();
+
+      if (incompatible.isNotEmpty) {
+        final names = incompatible
+            .map((p) => '${p.runtimeType} [${p.providerId}]')
+            .join(', ');
+        throw StateError(
+          'Firebase-dependent providers cannot be used on HMS (Huawei) '
+          'devices: $names. Use platform-aware initialization to exclude '
+          'Firebase providers on HMS.',
+        );
+      }
+    }
+
+    SBLogger.info('Initializing ${allProviders.length} provider(s)...');
+    for (final provider in allProviders) {
+      try {
+        await provider.initialize();
+        SBLogger.info('  ✓ ${provider.runtimeType} [${provider.providerId}] initialized');
+      } on Exception catch (e, st) {
+        SBLogger.error('  ✗ ${provider.runtimeType} [${provider.providerId}] failed to initialize', e, st);
+      }
+    }
 
     // 3. Create managers
-    _instance = ServiceManager._(
-      crash: CrashManager(providers: config.crashReporters, defaultProviderIds: config.defaultCrashProviders),
-      analytics: AnalyticsManager(providers: config.analyticsProviders, defaultProviderIds: config.defaultAnalyticsProviders),
+    _instance = ServiceBridge._(
+      crash: CrashManager(providers: config.crashReporters, defaultProviderIds: config.defaultCrashProviders.map((p) => p.id).toSet()),
+      analytics: AnalyticsManager(
+        providers: config.analyticsProviders,
+        defaultProviderIds: config.defaultAnalyticsProviders.map((p) => p.id).toSet(),
+      ),
       remoteConfig: RemoteConfigManager(
         platformDetector: platformDetector,
         gmsProvider: config.gmsRemoteConfig,
         hmsProvider: config.hmsRemoteConfig,
       ),
-      pushNotification: PushNotificationManager(providers: config.pushProviders, defaultProviderIds: config.defaultPushProviders),
-      log: LogManager(providers: config.loggerProviders, defaultProviderIds: config.defaultLogProviders),
-      deepLink: DeepLinkManager(providers: config.deepLinkProviders, defaultProviderIds: config.defaultDeepLinkProviders),
-      userTracking: UserTrackingManager(providers: config.userTrackers, defaultProviderIds: config.defaultUserTrackingProviders),
+      pushNotification: PushNotificationManager(
+        providers: config.pushProviders,
+        defaultProviderIds: config.defaultPushProviders.map((p) => p.id).toSet(),
+      ),
+      log: LogManager(providers: config.loggerProviders, defaultProviderIds: config.defaultLogProviders.map((p) => p.id).toSet()),
+      deepLink: DeepLinkManager(
+        providers: config.deepLinkProviders,
+        defaultProviderIds: config.defaultDeepLinkProviders.map((p) => p.id).toSet(),
+      ),
+      userTracking: UserTrackingManager(
+        providers: config.userTrackers,
+        defaultProviderIds: config.defaultUserTrackingProviders.map((p) => p.id).toSet(),
+      ),
       platform: platformDetector,
     );
+
+    SBLogger.info('ServiceBridge initialized successfully');
   }
 
   /// Dispose all providers and reset the singleton.
   static Future<void> dispose() async {
     if (_instance == null) return;
+
+    SBLogger.info('Disposing ServiceBridge...');
 
     final allProviders = <BaseServiceProvider>{
       ..._instance!.crash.providers,
@@ -154,5 +201,6 @@ class ServiceManager {
     await Future.wait(allProviders.map((p) => p.dispose()));
 
     _instance = null;
+    SBLogger.info('ServiceBridge disposed');
   }
 }

@@ -16,7 +16,7 @@ class InsiderPushProvider implements PushNotificationProvider {
   final StreamController<NotificationMessage> _messageOpenedController = StreamController<NotificationMessage>.broadcast();
 
   @override
-  String get providerId => 'insider';
+  String get providerId => SBProvider.insider.id;
 
   @override
   bool get isInitialized => _initialized;

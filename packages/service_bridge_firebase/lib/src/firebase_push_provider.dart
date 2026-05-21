@@ -10,7 +10,7 @@ class FirebasePushProvider implements PushNotificationProvider {
   bool _initialized = false;
 
   @override
-  String get providerId => 'firebase';
+  String get providerId => SBProvider.firebase.id;
 
   @override
   bool get isInitialized => _initialized;

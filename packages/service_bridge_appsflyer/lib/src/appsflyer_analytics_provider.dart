@@ -7,11 +7,9 @@ class AppsFlyerAnalyticsProvider implements AnalyticsProvider {
   ///
   /// [appsFlyerOptions] configures the AppsFlyer SDK.
   /// If [appsFlyerSdk] is provided, [appsFlyerOptions] is ignored.
-  AppsFlyerAnalyticsProvider({
-    AppsFlyerOptions? appsFlyerOptions,
-    AppsflyerSdk? appsFlyerSdk,
-  })  : _options = appsFlyerOptions,
-        _sdk = appsFlyerSdk;
+  AppsFlyerAnalyticsProvider({AppsFlyerOptions? appsFlyerOptions, AppsflyerSdk? appsFlyerSdk})
+    : _options = appsFlyerOptions,
+      _sdk = appsFlyerSdk;
 
   final AppsFlyerOptions? _options;
   AppsflyerSdk? _sdk;
@@ -21,7 +19,7 @@ class AppsFlyerAnalyticsProvider implements AnalyticsProvider {
   AppsflyerSdk? get sdk => _sdk;
 
   @override
-  String get providerId => 'appsflyer';
+  String get providerId => SBProvider.appsflyer.id;
 
   @override
   bool get isInitialized => _initialized;
@@ -41,10 +39,7 @@ class AppsFlyerAnalyticsProvider implements AnalyticsProvider {
   }
 
   @override
-  Future<void> logEvent(
-    String name, {
-    Map<String, dynamic>? parameters,
-  }) async {
+  Future<void> logEvent(String name, {Map<String, dynamic>? parameters}) async {
     await _sdk?.logEvent(name, parameters ?? {});
   }
 
@@ -54,23 +49,14 @@ class AppsFlyerAnalyticsProvider implements AnalyticsProvider {
   }
 
   @override
-  Future<void> setUserProperty({
-    required String name,
-    required String value,
-  }) async {
+  Future<void> setUserProperty({required String name, required String value}) async {
     // AppsFlyer uses additionalData for custom properties.
     _sdk?.setAdditionalData({name: value});
   }
 
   @override
-  Future<void> logScreenView(
-    String screenName, {
-    String? screenClass,
-  }) async {
-    await _sdk?.logEvent('screen_view', {
-      'screen_name': screenName,
-      if (screenClass != null) 'screen_class': screenClass,
-    });
+  Future<void> logScreenView(String screenName, {String? screenClass}) async {
+    await _sdk?.logEvent('screen_view', {'screen_name': screenName, if (screenClass != null) 'screen_class': screenClass});
   }
 
   @override

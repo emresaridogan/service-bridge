@@ -3,35 +3,35 @@ import 'package:service_bridge/testing.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  group('ServiceManager', () {
+  group('ServiceBridge', () {
     tearDown(() async {
-      if (ServiceManager.isInitialized) {
-        await ServiceManager.dispose();
+      if (ServiceBridge.isInitialized) {
+        await ServiceBridge.dispose();
       }
     });
 
     test('throws when accessing instance before initialize', () {
-      expect(() => ServiceManager.instance, throwsA(isA<StateError>()));
+      expect(() => ServiceBridge.instance, throwsA(isA<StateError>()));
     });
 
     test('initialize creates singleton', () async {
-      await ServiceManager.initialize(const ServiceManagerConfig());
+      await ServiceBridge.initialize(const ServiceBridgeConfig());
 
-      expect(ServiceManager.isInitialized, isTrue);
-      expect(ServiceManager.instance, isNotNull);
+      expect(ServiceBridge.isInitialized, isTrue);
+      expect(ServiceBridge.instance, isNotNull);
     });
 
     test('throws when initializing twice', () async {
-      await ServiceManager.initialize(const ServiceManagerConfig());
+      await ServiceBridge.initialize(const ServiceBridgeConfig());
 
-      expect(() => ServiceManager.initialize(const ServiceManagerConfig()), throwsA(isA<StateError>()));
+      expect(() => ServiceBridge.initialize(const ServiceBridgeConfig()), throwsA(isA<StateError>()));
     });
 
     test('dispose resets singleton', () async {
-      await ServiceManager.initialize(const ServiceManagerConfig());
-      await ServiceManager.dispose();
+      await ServiceBridge.initialize(const ServiceBridgeConfig());
+      await ServiceBridge.dispose();
 
-      expect(ServiceManager.isInitialized, isFalse);
+      expect(ServiceBridge.isInitialized, isFalse);
     });
 
     test('initializes all providers', () async {
@@ -39,8 +39,8 @@ void main() {
       final analytics = MockAnalyticsProvider();
       final logger = MockLoggerProvider();
 
-      await ServiceManager.initialize(
-        ServiceManagerConfig(crashReporters: [crash], analyticsProviders: [analytics], loggerProviders: [logger]),
+      await ServiceBridge.initialize(
+        ServiceBridgeConfig(crashReporters: [crash], analyticsProviders: [analytics], loggerProviders: [logger]),
       );
 
       expect(crash.isInitialized, isTrue);
@@ -52,18 +52,18 @@ void main() {
       final crash = MockCrashReporter();
       final analytics = MockAnalyticsProvider();
 
-      await ServiceManager.initialize(ServiceManagerConfig(crashReporters: [crash], analyticsProviders: [analytics]));
+      await ServiceBridge.initialize(ServiceBridgeConfig(crashReporters: [crash], analyticsProviders: [analytics]));
 
-      await ServiceManager.dispose();
+      await ServiceBridge.dispose();
 
       expect(crash.isInitialized, isFalse);
       expect(analytics.isInitialized, isFalse);
     });
 
     test('provides access to all managers', () async {
-      await ServiceManager.initialize(const ServiceManagerConfig());
+      await ServiceBridge.initialize(const ServiceBridgeConfig());
 
-      final sm = ServiceManager.instance;
+      final sm = ServiceBridge.instance;
       expect(sm.crash, isNotNull);
       expect(sm.analytics, isNotNull);
       expect(sm.remoteConfig, isNotNull);
@@ -74,12 +74,12 @@ void main() {
       expect(sm.platform, isNotNull);
     });
 
-    test('end-to-end: crash reporting through ServiceManager', () async {
+    test('end-to-end: crash reporting through ServiceBridge', () async {
       final crash = MockCrashReporter();
 
-      await ServiceManager.initialize(ServiceManagerConfig(crashReporters: [crash], defaultCrashProviders: {'mock_crash'}));
+      await ServiceBridge.initialize(ServiceBridgeConfig(crashReporters: [crash]));
 
-      await ServiceManager.instance.crash.reportError(Exception('test'), StackTrace.current);
+      await ServiceBridge.instance.crash.reportError(Exception('test'), StackTrace.current, only: {crash.providerId});
 
       expect(crash.reports, hasLength(1));
     });

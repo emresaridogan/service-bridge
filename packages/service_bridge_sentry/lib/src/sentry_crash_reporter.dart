@@ -14,8 +14,8 @@ import 'package:sentry_flutter/sentry_flutter.dart';
 ///       ..dsn = 'YOUR_DSN'
 ///       ..tracesSampleRate = 1.0,
 ///     appRunner: () async {
-///       // Initialize ServiceManager here
-///       await ServiceManager.initialize(config);
+///       // Initialize ServiceBridge here
+///       await ServiceBridge.initialize(config);
 ///       runApp(MyApp());
 ///     },
 ///   );
@@ -28,7 +28,7 @@ class SentryCrashReporter implements CrashReporter {
   bool _initialized = false;
 
   @override
-  String get providerId => 'sentry';
+  String get providerId => SBProvider.sentry.id;
 
   @override
   bool get isInitialized => _initialized;

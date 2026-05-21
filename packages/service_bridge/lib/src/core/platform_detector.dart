@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:service_bridge/src/core/enums.dart';
+import 'package:service_bridge/src/core/sb_logger.dart';
 
 /// Detects whether the device uses GMS or HMS.
 ///
@@ -33,6 +34,7 @@ class PlatformDetector {
 
     if (_platformOverride != null) {
       _detectedPlatform = _platformOverride;
+      SBLogger.info('Platform override: ${_detectedPlatform!.name}');
       return _detectedPlatform!;
     }
 
@@ -61,7 +63,8 @@ class PlatformDetector {
       if (_isHuaweiBrand(brand) || _isHuaweiBrand(manufacturer)) {
         return PlatformType.hms;
       }
-    } on Exception catch (_) {
+    } on Exception catch (e) {
+      SBLogger.warning('Device info unavailable, falling back to GMS: $e');
       // Fall back to GMS if device info cannot be retrieved.
     }
 
