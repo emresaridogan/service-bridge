@@ -35,7 +35,7 @@ class FirebaseProviderBundle {
   FirebaseProviderBundle({
     Map<String, dynamic>? remoteConfigDefaults,
     Duration remoteConfigFetchTimeout = const Duration(seconds: 10),
-    Duration remoteConfigMinimumFetchInterval = const Duration(hours: 1),
+    Duration remoteConfigMinimumFetchInterval = const Duration(seconds: 10),
   }) : crashReporter = FirebaseCrashReporter(),
        analyticsProvider = FirebaseAnalyticsProvider(),
        remoteConfigProvider = FirebaseRemoteConfigProvider(
@@ -54,7 +54,7 @@ class FirebaseProviderBundle {
     FirebaseOptions? options,
     Map<String, dynamic>? remoteConfigDefaults,
     Duration remoteConfigFetchTimeout = const Duration(seconds: 10),
-    Duration remoteConfigMinimumFetchInterval = const Duration(hours: 1),
+    Duration remoteConfigMinimumFetchInterval = const Duration(seconds: 10),
   }) async {
     if (kDebugMode) debugPrint('[ServiceBridge] Initializing Firebase Core...');
     await Firebase.initializeApp(options: options);
