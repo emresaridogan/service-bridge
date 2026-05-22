@@ -9,7 +9,9 @@ environment:
   flutter: ">=3.29.0"
 
 dependencies:
+  connectivity_plus: 7.1.1
   device_info_plus: 13.1.0
+  package_info_plus: 10.1.0
   flutter:
     sdk: flutter
 

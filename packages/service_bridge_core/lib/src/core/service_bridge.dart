@@ -1,4 +1,5 @@
 import 'package:service_bridge_core/src/contracts/base_service_provider.dart';
+import 'package:service_bridge_core/src/core/crash_context_collector.dart';
 import 'package:service_bridge_core/src/core/enums.dart';
 import 'package:service_bridge_core/src/core/platform_detector.dart';
 import 'package:service_bridge_core/src/core/sb_logger.dart';
@@ -108,6 +109,9 @@ class ServiceBridge {
     final detectedPlatform = await platformDetector.detect();
     SBLogger.info('Platform detected: ${detectedPlatform.name}');
 
+    // Share detected platform with context collector
+    CrashContextCollector.instance.setPlatformType(detectedPlatform);
+
     // 2. Collect all unique providers and initialize them
     final allProviders = <BaseServiceProvider>{
       ...config.crashReporters,
@@ -123,15 +127,11 @@ class ServiceBridge {
     // 3. Validate: Firebase-dependent providers cannot be used on HMS
     if (detectedPlatform == PlatformType.hms) {
       final incompatible = allProviders.where((p) {
-        return SBProvider.values.any(
-          (sp) => sp.isFirebaseDependent && sp.id == p.providerId,
-        );
+        return SBProvider.values.any((sp) => sp.isFirebaseDependent && sp.id == p.providerId);
       }).toList();
 
       if (incompatible.isNotEmpty) {
-        final names = incompatible
-            .map((p) => '${p.runtimeType} [${p.providerId}]')
-            .join(', ');
+        final names = incompatible.map((p) => '${p.runtimeType} [${p.providerId}]').join(', ');
         throw StateError(
           'Firebase-dependent providers cannot be used on HMS (Huawei) '
           'devices: $names. Use platform-aware initialization to exclude '

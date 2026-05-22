@@ -3,6 +3,8 @@ import 'package:service_bridge_core/testing.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
   group('CrashManager', () {
     late MockCrashReporter firebaseCrash;
     late MockCrashReporter sentryCrash;

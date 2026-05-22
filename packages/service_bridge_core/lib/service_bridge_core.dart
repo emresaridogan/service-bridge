@@ -31,11 +31,13 @@ export 'src/contracts/push_notification_provider.dart';
 export 'src/contracts/remote_config_provider.dart';
 export 'src/contracts/user_tracker.dart';
 // Core
+export 'src/core/crash_context_collector.dart';
 export 'src/core/enums.dart';
 export 'src/core/platform_detector.dart';
 export 'src/core/provider_resolver.dart';
 export 'src/core/service_bridge.dart';
 export 'src/core/service_bridge_config.dart';
+export 'src/core/service_bridge_error_handler.dart';
 // Managers
 export 'src/managers/analytics_manager.dart';
 export 'src/managers/crash_manager.dart';
