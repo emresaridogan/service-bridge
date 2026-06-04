@@ -1,6 +1,11 @@
-# service_bridge
+# Service Bridge
+
+[![Pub Version](https://img.shields.io/pub/v/service_bridge_core.svg)](https://pub.dev/packages/service_bridge_core)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 A modular, multi-provider service management layer for Flutter applications. It orchestrates third-party SDKs (Firebase, Sentry, AppsFlyer, Insider, Huawei HMS) through unified contracts, allowing you to swap or combine providers without changing application code.
+
+> **Türkçe dokümantasyon için:** [README.tr.md](README.tr.md)
 
 ---
 
@@ -42,14 +47,14 @@ Key characteristics:
 
 ## Packages
 
-| Package | Description |
-|---|---|
-| [`service_bridge`](packages/service_bridge) | Core contracts, managers, `ServiceManager`, and `PlatformDetector` |
-| [`service_bridge_firebase`](packages/service_bridge_firebase) | Firebase implementations (Analytics, Crashlytics, Remote Config, Cloud Messaging, Performance Logging) |
-| [`service_bridge_appsflyer`](packages/service_bridge_appsflyer) | AppsFlyer implementations (Analytics, Deep Links, User Tracking) |
-| [`service_bridge_sentry`](packages/service_bridge_sentry) | Sentry implementations (Crash Reporting, Logging) |
-| [`service_bridge_insider`](packages/service_bridge_insider) | Insider implementations (Analytics, Push Notifications, User Tracking) |
-| [`service_bridge_huawei`](packages/service_bridge_huawei) | Huawei HMS implementations (Push Notifications, Remote Config) |
+| Package | pub.dev | Description |
+|---|---|---|
+| [`service_bridge_core`](packages/service_bridge_core) | [![Pub](https://img.shields.io/pub/v/service_bridge_core.svg)](https://pub.dev/packages/service_bridge_core) | Core contracts, managers, models, and platform detection |
+| [`service_bridge_firebase`](packages/service_bridge_firebase) | [![Pub](https://img.shields.io/pub/v/service_bridge_firebase.svg)](https://pub.dev/packages/service_bridge_firebase) | Firebase (Analytics, Crashlytics, Remote Config, Cloud Messaging, Logging) |
+| [`service_bridge_appsflyer`](packages/service_bridge_appsflyer) | [![Pub](https://img.shields.io/pub/v/service_bridge_appsflyer.svg)](https://pub.dev/packages/service_bridge_appsflyer) | AppsFlyer (Analytics, Deep Links, User Tracking) |
+| [`service_bridge_sentry`](packages/service_bridge_sentry) | [![Pub](https://img.shields.io/pub/v/service_bridge_sentry.svg)](https://pub.dev/packages/service_bridge_sentry) | Sentry (Crash Reporting, Logging) |
+| [`service_bridge_insider`](packages/service_bridge_insider) | [![Pub](https://img.shields.io/pub/v/service_bridge_insider.svg)](https://pub.dev/packages/service_bridge_insider) | Insider (Analytics, Push Notifications, User Tracking) |
+| [`service_bridge_huawei`](packages/service_bridge_huawei) | [![Pub](https://img.shields.io/pub/v/service_bridge_huawei.svg)](https://pub.dev/packages/service_bridge_huawei) | Huawei HMS (Push Notifications, Remote Config) |
 
 ---
 
@@ -80,18 +85,12 @@ In your app's `pubspec.yaml`, add the core package and whichever integration pac
 
 ```yaml
 dependencies:
-  service_bridge:
-    path: packages/service_bridge
+  service_bridge_core: ^1.0.0
 
   # Include only the integrations you use
-  service_bridge_firebase:
-    path: packages/service_bridge_firebase
-
-  service_bridge_sentry:
-    path: packages/service_bridge_sentry
-
-  service_bridge_appsflyer:
-    path: packages/service_bridge_appsflyer
+  service_bridge_firebase: ^1.0.0
+  service_bridge_sentry: ^1.0.0
+  service_bridge_appsflyer: ^1.0.0
 ```
 
 ### 2. Initialize at app startup
@@ -437,6 +436,21 @@ dart test
 melos test
 ```
 
+## Contributing
+
+Contributions are welcome! Please see the individual package READMEs for package-specific details.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Run tests (`melos test`) and analysis (`melos analyze`)
+4. Commit your changes (`git commit -m 'Add amazing feature'`)
+5. Push to the branch (`git push origin feature/amazing-feature`)
+6. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
+
 ---
 
-*Created By: Emre Sarıdoğan*
+*Created by Emre Sarıdoğan*

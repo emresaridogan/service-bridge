@@ -1,6 +1,11 @@
-# service_bridge
+# Service Bridge
+
+[![Pub Version](https://img.shields.io/pub/v/service_bridge_core.svg)](https://pub.dev/packages/service_bridge_core)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 Flutter uygulamaları için modüler, çok sağlayıcılı bir servis yönetim katmanı. Firebase, Sentry, AppsFlyer, Insider ve Huawei HMS gibi üçüncü taraf SDK'ları birleşik sözleşmeler (contract) aracılığıyla yönetir; böylece uygulama kodunu değiştirmeden sağlayıcıları değiştirebilir ya da birleştirebilirsiniz.
+
+> **For English documentation:** [README.md](README.md)
 
 ---
 
@@ -42,14 +47,14 @@ Temel özellikler:
 
 ## Paketler
 
-| Paket | Açıklama |
-|---|---|
-| [`service_bridge`](packages/service_bridge) | Temel sözleşmeler, manager'lar, `ServiceManager` ve `PlatformDetector` |
-| [`service_bridge_firebase`](packages/service_bridge_firebase) | Firebase uygulamaları (Analytics, Crashlytics, Remote Config, Cloud Messaging, Loglama) |
-| [`service_bridge_appsflyer`](packages/service_bridge_appsflyer) | AppsFlyer uygulamaları (Analytics, Deep Link, Kullanıcı Takibi) |
-| [`service_bridge_sentry`](packages/service_bridge_sentry) | Sentry uygulamaları (Hata Raporlama, Loglama) |
-| [`service_bridge_insider`](packages/service_bridge_insider) | Insider uygulamaları (Analytics, Push Bildirimleri, Kullanıcı Takibi) |
-| [`service_bridge_huawei`](packages/service_bridge_huawei) | Huawei HMS uygulamaları (Push Bildirimleri, Remote Config) |
+| Paket | pub.dev | Açıklama |
+|---|---|---|
+| [`service_bridge_core`](packages/service_bridge_core) | [![Pub](https://img.shields.io/pub/v/service_bridge_core.svg)](https://pub.dev/packages/service_bridge_core) | Temel sözleşmeler, manager'lar, modeller ve platform tespiti |
+| [`service_bridge_firebase`](packages/service_bridge_firebase) | [![Pub](https://img.shields.io/pub/v/service_bridge_firebase.svg)](https://pub.dev/packages/service_bridge_firebase) | Firebase (Analytics, Crashlytics, Remote Config, Cloud Messaging, Loglama) |
+| [`service_bridge_appsflyer`](packages/service_bridge_appsflyer) | [![Pub](https://img.shields.io/pub/v/service_bridge_appsflyer.svg)](https://pub.dev/packages/service_bridge_appsflyer) | AppsFlyer (Analytics, Deep Link, Kullanıcı Takibi) |
+| [`service_bridge_sentry`](packages/service_bridge_sentry) | [![Pub](https://img.shields.io/pub/v/service_bridge_sentry.svg)](https://pub.dev/packages/service_bridge_sentry) | Sentry (Hata Raporlama, Loglama) |
+| [`service_bridge_insider`](packages/service_bridge_insider) | [![Pub](https://img.shields.io/pub/v/service_bridge_insider.svg)](https://pub.dev/packages/service_bridge_insider) | Insider (Analytics, Push Bildirimleri, Kullanıcı Takibi) |
+| [`service_bridge_huawei`](packages/service_bridge_huawei) | [![Pub](https://img.shields.io/pub/v/service_bridge_huawei.svg)](https://pub.dev/packages/service_bridge_huawei) | Huawei HMS (Push Bildirimleri, Remote Config) |
 
 ---
 
@@ -80,18 +85,12 @@ Uygulamanızın `pubspec.yaml` dosyasına temel paketi ve ihtiyaç duyduğunuz e
 
 ```yaml
 dependencies:
-  service_bridge:
-    path: packages/service_bridge
+  service_bridge_core: ^1.0.0
 
   # Yalnızca kullandığınız entegrasyonları ekleyin
-  service_bridge_firebase:
-    path: packages/service_bridge_firebase
-
-  service_bridge_sentry:
-    path: packages/service_bridge_sentry
-
-  service_bridge_appsflyer:
-    path: packages/service_bridge_appsflyer
+  service_bridge_firebase: ^1.0.0
+  service_bridge_sentry: ^1.0.0
+  service_bridge_appsflyer: ^1.0.0
 ```
 
 ### 2. Uygulama başlangıcında başlat
@@ -436,6 +435,21 @@ dart test
 # Melos aracılığıyla tüm paket testleri
 melos test
 ```
+
+## Katkıda Bulunma
+
+Katkılarınızı bekliyoruz! Pakete özel detaylar için ilgili paketin README dosyasına bakınız.
+
+1. Repoyu fork edin
+2. Feature branch oluşturun (`git checkout -b feature/harika-ozellik`)
+3. Testleri (`melos test`) ve analizi (`melos analyze`) çalıştırın
+4. Değişikliklerinizi commit edin (`git commit -m 'Harika özellik ekle'`)
+5. Branch'i push edin (`git push origin feature/harika-ozellik`)
+6. Pull Request açın
+
+## Lisans
+
+Bu proje MIT Lisansı altında lisanslanmıştır — detaylar için [LICENSE](LICENSE) dosyasına bakınız.
 
 ---
 

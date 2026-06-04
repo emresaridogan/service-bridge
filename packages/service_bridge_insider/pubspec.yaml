@@ -1,7 +1,17 @@
 name: service_bridge_insider
-description: Insider provider implementations for service_bridge.
+description: >-
+  Insider provider implementations for Service Bridge. Includes analytics,
+  push notification, and user tracking integrations via the Insider SDK.
 version: 1.0.0
-publish_to: none
+homepage: https://github.com/emresaridogan/service_bridge
+repository: https://github.com/emresaridogan/service_bridge/tree/main/packages/service_bridge_insider
+issue_tracker: https://github.com/emresaridogan/service_bridge/issues
+
+topics:
+  - insider
+  - analytics
+  - push-notifications
+  - user-tracking
 
 environment:
   sdk: ">=3.8.0 <4.0.0"

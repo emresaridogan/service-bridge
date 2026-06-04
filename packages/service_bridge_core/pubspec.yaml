@@ -1,8 +1,19 @@
 name: service_bridge_core
-description: >
-  Core contracts, managers, and models for the service_bridge ecosystem.
+description: >-
+  Core contracts, managers, and platform detection for the Service Bridge
+  ecosystem. Defines unified abstractions for analytics, crash reporting,
+  push notifications, remote config, logging, deep links, and user tracking.
 version: 1.0.0
-publish_to: none
+homepage: https://github.com/emresaridogan/service_bridge
+repository: https://github.com/emresaridogan/service_bridge/tree/main/packages/service_bridge_core
+issue_tracker: https://github.com/emresaridogan/service_bridge/issues
+
+topics:
+  - service-manager
+  - analytics
+  - crash-reporting
+  - push-notifications
+  - remote-config
 
 environment:
   sdk: ">=3.8.0 <4.0.0"

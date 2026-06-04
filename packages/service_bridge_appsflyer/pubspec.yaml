@@ -1,7 +1,17 @@
 name: service_bridge_appsflyer
-description: AppsFlyer provider implementations for service_bridge.
+description: >-
+  AppsFlyer provider implementations for Service Bridge. Includes analytics
+  event tracking, deep link handling, and user tracking integrations.
 version: 1.0.0
-publish_to: none
+homepage: https://github.com/emresaridogan/service_bridge
+repository: https://github.com/emresaridogan/service_bridge/tree/main/packages/service_bridge_appsflyer
+issue_tracker: https://github.com/emresaridogan/service_bridge/issues
+
+topics:
+  - appsflyer
+  - analytics
+  - deep-linking
+  - attribution
 
 environment:
   sdk: ">=3.8.0 <4.0.0"
