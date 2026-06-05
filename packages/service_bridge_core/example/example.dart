@@ -90,10 +90,10 @@ class HomePage extends StatelessWidget {
     await sb.analytics.logEvent('button_click', parameters: {'button': 'purchase'});
 
     // Log only to Firebase
-    await sb.analytics.logEvent('debug_event', only: {SBProvider.firebase.id});
+    await sb.analytics.logEvent('debug_event', only: {SBProvider.firebase});
 
     // Log to all except AppsFlyer
-    await sb.analytics.logEvent('screen_action', exclude: {SBProvider.appsflyer.id});
+    await sb.analytics.logEvent('screen_action', exclude: {SBProvider.appsflyer});
   }
 
   Future<void> _reportCrash() async {

@@ -15,12 +15,12 @@ void main() {
       sentryCrash = MockCrashReporter();
     });
 
-    Future<void> initProviders({Set<String> defaults = const {'mock_crash_1', 'mock_crash_2'}}) async {
-      firebaseCrash = _NamedMockCrashReporter('mock_crash_1');
-      sentryCrash = _NamedMockCrashReporter('mock_crash_2');
+    Future<void> initProviders({Set<SBProvider> defaults = const {SBProvider.firebase, SBProvider.sentry}}) async {
+      firebaseCrash = _NamedMockCrashReporter(SBProvider.firebase);
+      sentryCrash = _NamedMockCrashReporter(SBProvider.sentry);
       await firebaseCrash.initialize();
       await sentryCrash.initialize();
-      manager = CrashManager(providers: [firebaseCrash, sentryCrash], defaultProviderIds: defaults);
+      manager = CrashManager(providers: [firebaseCrash, sentryCrash], defaultProviders: defaults);
     }
 
     test('reportError dispatches to all default providers', () async {
@@ -37,7 +37,7 @@ void main() {
     test('reportError with only filters to specified providers', () async {
       await initProviders();
 
-      await manager.reportError(Exception('test'), StackTrace.current, only: {'mock_crash_1'});
+      await manager.reportError(Exception('test'), StackTrace.current, only: {SBProvider.firebase});
 
       expect(firebaseCrash.reports, hasLength(1));
       expect(sentryCrash.reports, isEmpty);
@@ -46,19 +46,19 @@ void main() {
     test('reportError with exclude removes specified providers', () async {
       await initProviders();
 
-      await manager.reportError(Exception('test'), StackTrace.current, exclude: {'mock_crash_2'});
+      await manager.reportError(Exception('test'), StackTrace.current, exclude: {SBProvider.sentry});
 
       expect(firebaseCrash.reports, hasLength(1));
       expect(sentryCrash.reports, isEmpty);
     });
 
     test('skips uninitialized providers', () async {
-      firebaseCrash = _NamedMockCrashReporter('mock_crash_1');
-      sentryCrash = _NamedMockCrashReporter('mock_crash_2');
+      firebaseCrash = _NamedMockCrashReporter(SBProvider.firebase);
+      sentryCrash = _NamedMockCrashReporter(SBProvider.sentry);
       await firebaseCrash.initialize();
       // sentryCrash NOT initialized
 
-      manager = CrashManager(providers: [firebaseCrash, sentryCrash], defaultProviderIds: {'mock_crash_1', 'mock_crash_2'});
+      manager = CrashManager(providers: [firebaseCrash, sentryCrash], defaultProviders: {SBProvider.firebase, SBProvider.sentry});
 
       await manager.reportError(Exception('test'), StackTrace.current);
 
@@ -73,11 +73,11 @@ void main() {
     late AnalyticsManager manager;
 
     setUp(() async {
-      provider1 = _NamedMockAnalyticsProvider('analytics_1');
-      provider2 = _NamedMockAnalyticsProvider('analytics_2');
+      provider1 = _NamedMockAnalyticsProvider(SBProvider.firebase);
+      provider2 = _NamedMockAnalyticsProvider(SBProvider.appsflyer);
       await provider1.initialize();
       await provider2.initialize();
-      manager = AnalyticsManager(providers: [provider1, provider2], defaultProviderIds: {'analytics_1', 'analytics_2'});
+      manager = AnalyticsManager(providers: [provider1, provider2], defaultProviders: {SBProvider.firebase, SBProvider.appsflyer});
     });
 
     test('logEvent dispatches to all default providers', () async {
@@ -89,7 +89,7 @@ void main() {
     });
 
     test('logEvent with only filters correctly', () async {
-      await manager.logEvent('click', only: {'analytics_1'});
+      await manager.logEvent('click', only: {SBProvider.firebase});
 
       expect(provider1.events, hasLength(1));
       expect(provider2.events, isEmpty);
@@ -109,11 +109,11 @@ void main() {
     late LogManager manager;
 
     setUp(() async {
-      logger1 = _NamedMockLoggerProvider('logger_1');
-      logger2 = _NamedMockLoggerProvider('logger_2');
+      logger1 = _NamedMockLoggerProvider(SBProvider.firebaseLogger);
+      logger2 = _NamedMockLoggerProvider(SBProvider.sentryLogger);
       await logger1.initialize();
       await logger2.initialize();
-      manager = LogManager(providers: [logger1, logger2], defaultProviderIds: {'logger_1', 'logger_2'});
+      manager = LogManager(providers: [logger1, logger2], defaultProviders: {SBProvider.firebaseLogger, SBProvider.sentryLogger});
     });
 
     test('error dispatches to all providers', () async {
@@ -131,7 +131,7 @@ void main() {
     });
 
     test('exclude works for log calls', () async {
-      await manager.info('test', exclude: {'logger_2'});
+      await manager.info('test', exclude: {SBProvider.sentryLogger});
 
       expect(logger1.logs, hasLength(1));
       expect(logger2.logs, isEmpty);
@@ -144,11 +144,11 @@ void main() {
     late UserTrackingManager manager;
 
     setUp(() async {
-      tracker1 = _NamedMockUserTracker('tracker_1');
-      tracker2 = _NamedMockUserTracker('tracker_2');
+      tracker1 = _NamedMockUserTracker(SBProvider.insider);
+      tracker2 = _NamedMockUserTracker(SBProvider.appsflyer);
       await tracker1.initialize();
       await tracker2.initialize();
-      manager = UserTrackingManager(providers: [tracker1, tracker2], defaultProviderIds: {'tracker_1', 'tracker_2'});
+      manager = UserTrackingManager(providers: [tracker1, tracker2], defaultProviders: {SBProvider.insider, SBProvider.appsflyer});
     });
 
     test('identifyUser dispatches to all providers', () async {
@@ -167,7 +167,7 @@ void main() {
     });
 
     test('trackEvent with only', () async {
-      await manager.trackEvent('purchase', parameters: {'amount': 100}, only: {'tracker_1'});
+      await manager.trackEvent('purchase', parameters: {'amount': 100}, only: {SBProvider.insider});
 
       expect(tracker1.events, hasLength(1));
       expect(tracker2.events, isEmpty);
@@ -178,41 +178,57 @@ void main() {
     late List<_NamedMockCrashReporter> providers;
 
     setUp(() async {
-      providers = [_NamedMockCrashReporter('a'), _NamedMockCrashReporter('b'), _NamedMockCrashReporter('c')];
+      providers = [
+        _NamedMockCrashReporter(SBProvider.firebase),
+        _NamedMockCrashReporter(SBProvider.sentry),
+        _NamedMockCrashReporter(SBProvider.appsflyer),
+      ];
       for (final p in providers) {
         await p.initialize();
       }
     });
 
     test('returns all defaults when no override', () {
-      final result = ProviderResolver.resolve(providers, defaultProviderIds: {'a', 'b', 'c'});
+      final result = ProviderResolver.resolve(providers, defaultProviders: {SBProvider.firebase, SBProvider.sentry, SBProvider.appsflyer});
       expect(result, hasLength(3));
     });
 
     test('only filters to specified IDs', () {
-      final result = ProviderResolver.resolve(providers, defaultProviderIds: {'a', 'b', 'c'}, only: {'a'});
+      final result = ProviderResolver.resolve(
+        providers,
+        defaultProviders: {SBProvider.firebase, SBProvider.sentry, SBProvider.appsflyer},
+        only: {SBProvider.firebase},
+      );
       expect(result, hasLength(1));
-      expect(result.first.providerId, 'a');
+      expect(result.first.providerId, SBProvider.firebase.id);
     });
 
     test('exclude removes specified IDs', () {
-      final result = ProviderResolver.resolve(providers, defaultProviderIds: {'a', 'b', 'c'}, exclude: {'c'});
+      final result = ProviderResolver.resolve(
+        providers,
+        defaultProviders: {SBProvider.firebase, SBProvider.sentry, SBProvider.appsflyer},
+        exclude: {SBProvider.appsflyer},
+      );
       expect(result, hasLength(2));
-      expect(result.map((p) => p.providerId), containsAll(['a', 'b']));
+      expect(result.map((p) => p.providerId), containsAll([SBProvider.firebase.id, SBProvider.sentry.id]));
     });
 
     test('filters out uninitialized providers', () async {
-      await providers[1].dispose(); // b is now uninitialized
+      await providers[1].dispose(); // sentry is now uninitialized
 
-      final result = ProviderResolver.resolve(providers, defaultProviderIds: {'a', 'b', 'c'});
+      final result = ProviderResolver.resolve(providers, defaultProviders: {SBProvider.firebase, SBProvider.sentry, SBProvider.appsflyer});
       expect(result, hasLength(2));
-      expect(result.map((p) => p.providerId), isNot(contains('b')));
+      expect(result.map((p) => p.providerId), isNot(contains(SBProvider.sentry.id)));
     });
 
     test('only takes precedence over defaults', () {
-      final result = ProviderResolver.resolve(providers, defaultProviderIds: {'a'}, only: {'b', 'c'});
+      final result = ProviderResolver.resolve(
+        providers,
+        defaultProviders: {SBProvider.firebase},
+        only: {SBProvider.sentry, SBProvider.appsflyer},
+      );
       expect(result, hasLength(2));
-      expect(result.map((p) => p.providerId), containsAll(['b', 'c']));
+      expect(result.map((p) => p.providerId), containsAll([SBProvider.sentry.id, SBProvider.appsflyer.id]));
     });
   });
 
@@ -261,33 +277,33 @@ void main() {
 // -- Named mock variants for testing with custom providerIds --
 
 class _NamedMockCrashReporter extends MockCrashReporter {
-  _NamedMockCrashReporter(this._id);
-  final String _id;
+  _NamedMockCrashReporter(this._provider);
+  final SBProvider _provider;
 
   @override
-  String get providerId => _id;
+  String get providerId => _provider.id;
 }
 
 class _NamedMockAnalyticsProvider extends MockAnalyticsProvider {
-  _NamedMockAnalyticsProvider(this._id);
-  final String _id;
+  _NamedMockAnalyticsProvider(this._provider);
+  final SBProvider _provider;
 
   @override
-  String get providerId => _id;
+  String get providerId => _provider.id;
 }
 
 class _NamedMockLoggerProvider extends MockLoggerProvider {
-  _NamedMockLoggerProvider(this._id);
-  final String _id;
+  _NamedMockLoggerProvider(this._provider);
+  final SBProvider _provider;
 
   @override
-  String get providerId => _id;
+  String get providerId => _provider.id;
 }
 
 class _NamedMockUserTracker extends MockUserTracker {
-  _NamedMockUserTracker(this._id);
-  final String _id;
+  _NamedMockUserTracker(this._provider);
+  final SBProvider _provider;
 
   @override
-  String get providerId => _id;
+  String get providerId => _provider.id;
 }

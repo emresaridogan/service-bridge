@@ -9,7 +9,7 @@
 /// await ServiceBridge.initialize(
 ///   ServiceBridgeConfig(
 ///     crashReporters: [/* your providers */],
-///     defaultCrashProviders: {'firebase', 'sentry'},
+///     defaultCrashProviders: {SBProvider.firebase, SBProvider.sentry},
 ///   ),
 /// );
 ///
@@ -17,7 +17,7 @@
 /// ServiceBridge.instance.crash.reportError(error, stackTrace);
 ///
 /// // Log events to specific providers
-/// ServiceBridge.instance.analytics.logEvent('purchase', only: {'firebase'});
+/// ServiceBridge.instance.analytics.logEvent('purchase', only: {SBProvider.firebase});
 /// ```
 library;
 

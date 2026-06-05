@@ -26,7 +26,7 @@ import 'package:service_bridge_core/src/managers/user_tracking_manager.dart';
 ///       FirebaseCrashReporter(),
 ///       SentryCrashReporter(dsn: '...'),
 ///     ],
-///     defaultCrashProviders: {'firebase', 'sentry'},
+///     defaultCrashProviders: {SBProvider.firebase, SBProvider.sentry},
 ///     // ...
 ///   ),
 /// );
@@ -152,29 +152,17 @@ class ServiceBridge {
 
     // 3. Create managers
     _instance = ServiceBridge._(
-      crash: CrashManager(providers: config.crashReporters, defaultProviderIds: config.defaultCrashProviders.map((p) => p.id).toSet()),
-      analytics: AnalyticsManager(
-        providers: config.analyticsProviders,
-        defaultProviderIds: config.defaultAnalyticsProviders.map((p) => p.id).toSet(),
-      ),
+      crash: CrashManager(providers: config.crashReporters, defaultProviders: config.defaultCrashProviders),
+      analytics: AnalyticsManager(providers: config.analyticsProviders, defaultProviders: config.defaultAnalyticsProviders),
       remoteConfig: RemoteConfigManager(
         platformDetector: platformDetector,
         gmsProvider: config.gmsRemoteConfig,
         hmsProvider: config.hmsRemoteConfig,
       ),
-      pushNotification: PushNotificationManager(
-        providers: config.pushProviders,
-        defaultProviderIds: config.defaultPushProviders.map((p) => p.id).toSet(),
-      ),
-      log: LogManager(providers: config.loggerProviders, defaultProviderIds: config.defaultLogProviders.map((p) => p.id).toSet()),
-      deepLink: DeepLinkManager(
-        providers: config.deepLinkProviders,
-        defaultProviderIds: config.defaultDeepLinkProviders.map((p) => p.id).toSet(),
-      ),
-      userTracking: UserTrackingManager(
-        providers: config.userTrackers,
-        defaultProviderIds: config.defaultUserTrackingProviders.map((p) => p.id).toSet(),
-      ),
+      pushNotification: PushNotificationManager(providers: config.pushProviders, defaultProviders: config.defaultPushProviders),
+      log: LogManager(providers: config.loggerProviders, defaultProviders: config.defaultLogProviders),
+      deepLink: DeepLinkManager(providers: config.deepLinkProviders, defaultProviders: config.defaultDeepLinkProviders),
+      userTracking: UserTrackingManager(providers: config.userTrackers, defaultProviders: config.defaultUserTrackingProviders),
       platform: platformDetector,
     );
 

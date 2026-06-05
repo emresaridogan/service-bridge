@@ -89,6 +89,11 @@ enum SBProvider {
   /// The underlying string identifier matched against [BaseServiceProvider.providerId].
   final String id;
 
+  static final Map<String, SBProvider> _byId = {for (final provider in SBProvider.values) provider.id: provider};
+
+  /// Resolves an [SBProvider] from a raw provider identifier.
+  static SBProvider? fromId(String id) => _byId[id];
+
   /// Providers that require Google Mobile Services (Firebase).
   static const _firebaseDependentProviders = {firebase, firebaseLogger};
 

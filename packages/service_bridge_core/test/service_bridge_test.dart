@@ -77,13 +77,24 @@ void main() {
     });
 
     test('end-to-end: crash reporting through ServiceBridge', () async {
-      final crash = MockCrashReporter();
+      final crash = _EnumMockCrashReporter(SBProvider.firebase);
 
-      await ServiceBridge.initialize(ServiceBridgeConfig(crashReporters: [crash]));
+      await ServiceBridge.initialize(
+        ServiceBridgeConfig(crashReporters: [crash], defaultCrashProviders: {SBProvider.firebase}),
+      );
 
-      await ServiceBridge.instance.crash.reportError(Exception('test'), StackTrace.current, only: {crash.providerId});
+      await ServiceBridge.instance.crash.reportError(Exception('test'), StackTrace.current, only: {SBProvider.firebase});
 
       expect(crash.reports, hasLength(1));
     });
   });
+}
+
+class _EnumMockCrashReporter extends MockCrashReporter {
+  _EnumMockCrashReporter(this._provider);
+
+  final SBProvider _provider;
+
+  @override
+  String get providerId => _provider.id;
 }
