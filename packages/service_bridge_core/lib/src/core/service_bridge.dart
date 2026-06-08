@@ -142,6 +142,10 @@ class ServiceBridge {
 
     SBLogger.info('Initializing ${allProviders.length} provider(s)...');
     for (final provider in allProviders) {
+      if (provider.isInitialized) {
+        SBLogger.info('  ↷ ${provider.runtimeType} [${provider.providerId}] already initialized, skipping');
+        continue;
+      }
       try {
         await provider.initialize();
         SBLogger.info('  ✓ ${provider.runtimeType} [${provider.providerId}] initialized');

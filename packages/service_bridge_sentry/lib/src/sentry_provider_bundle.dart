@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:service_bridge_sentry/src/sentry_crash_reporter.dart';
 import 'package:service_bridge_sentry/src/sentry_logger_provider.dart';
@@ -24,9 +25,21 @@ class SentryProviderBundle {
   /// Assumes [SentryFlutter.init] has already been called.
   /// Prefer [SentryProviderBundle.initialize] which handles this
   /// automatically.
-  SentryProviderBundle()
-    : crashReporter = SentryCrashReporter(),
-      loggerProvider = SentryLoggerProvider();
+  SentryProviderBundle() : crashReporter = SentryCrashReporter(), loggerProvider = SentryLoggerProvider();
+
+  /// Initializes Sentry widgets binding for error capture.
+  ///
+  /// Must be called before [runApp]. Use this in your main() if using Sentry:
+  ///
+  /// ```dart
+  /// void main() {
+  ///   await SentryProviderBundle.ensureInitialized();
+  ///   runApp(MyApp());
+  /// }
+  /// ```
+  static Future<WidgetsBinding> ensureInitialized() async {
+    return await SentryWidgetsFlutterBinding.ensureInitialized();
+  }
 
   /// Initializes the Sentry SDK and creates all Sentry providers.
   ///
@@ -35,10 +48,7 @@ class SentryProviderBundle {
   /// **Note**: Do NOT use `SentryFlutter.init`'s `appRunner` parameter
   /// when using ServiceBridge. ServiceBridge manages error routing
   /// via its own global error handlers.
-  static Future<SentryProviderBundle> initialize({
-    required String dsn,
-    double tracesSampleRate = 1.0,
-  }) async {
+  static Future<SentryProviderBundle> initialize({required String dsn, double tracesSampleRate = 1.0}) async {
     if (kDebugMode) debugPrint('[ServiceBridge] Initializing Sentry...');
     await SentryFlutter.init((options) {
       options
