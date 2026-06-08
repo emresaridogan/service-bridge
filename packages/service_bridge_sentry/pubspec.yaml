@@ -22,9 +22,10 @@ dependencies:
     sdk: flutter
   service_bridge_core:
     path: ../service_bridge_core
-  sentry_flutter: 9.20.0
+  sentry_flutter: ^9.21.0
 
 dev_dependencies:
+  sentry_dart_plugin: ^3.4.0
   flutter_test:
     sdk: flutter
   mocktail: 1.0.5
