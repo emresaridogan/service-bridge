@@ -1,4 +1,5 @@
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:service_bridge_core/service_bridge_core.dart';
 
 /// Firebase Crashlytics implementation of [CrashReporter].
@@ -18,6 +19,7 @@ class FirebaseCrashReporter implements CrashReporter {
   @override
   Future<void> initialize() async {
     _crashlytics ??= FirebaseCrashlytics.instance;
+    await _crashlytics!.setCrashlyticsCollectionEnabled(!kDebugMode);
     _initialized = true;
   }
 

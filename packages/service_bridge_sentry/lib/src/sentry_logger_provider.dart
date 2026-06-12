@@ -1,6 +1,6 @@
-import 'package:service_bridge_core/service_bridge_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
+import 'package:service_bridge_core/service_bridge_core.dart';
 
 /// Sentry-based implementation of [LoggerProvider].
 ///
@@ -32,7 +32,8 @@ class SentryLoggerProvider implements LoggerProvider {
   Future<void> log(LogLevel level, String message, {Map<String, dynamic>? extras, Object? error, StackTrace? stackTrace}) async {
     if (error != null && stackTrace != null) {
       if (kDebugMode) {
-        debugPrint('[ServiceBridge] Capturing error in Sentry: $error\n$stackTrace');
+        debugPrint('[ServiceBridge] Skipping Sentry event in debug mode: $error\n$stackTrace');
+        return;
       }
 
       await Sentry.addBreadcrumb(Breadcrumb(message: message, level: _mapLevel(level), category: 'log', data: extras));

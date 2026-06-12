@@ -1,5 +1,6 @@
-import 'package:service_bridge_core/service_bridge_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
+import 'package:service_bridge_core/service_bridge_core.dart';
 
 /// Sentry implementation of [CrashReporter].
 ///
@@ -47,6 +48,9 @@ class SentryCrashReporter implements CrashReporter {
 
   @override
   Future<void> reportError(Object error, StackTrace stackTrace, {Map<String, dynamic>? extras, SeverityLevel? level}) async {
+    if (kDebugMode) {
+      return;
+    }
     await Sentry.captureException(
       error,
       stackTrace: stackTrace,
@@ -65,6 +69,9 @@ class SentryCrashReporter implements CrashReporter {
 
   @override
   Future<void> reportMessage(String message, {SeverityLevel level = SeverityLevel.info, Map<String, dynamic>? extras}) async {
+    if (kDebugMode) {
+      return;
+    }
     await Sentry.captureMessage(
       message,
       level: _mapSeverity(level),

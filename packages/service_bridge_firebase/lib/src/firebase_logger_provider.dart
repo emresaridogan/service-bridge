@@ -1,5 +1,6 @@
-import 'package:service_bridge_core/service_bridge_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/foundation.dart';
+import 'package:service_bridge_core/service_bridge_core.dart';
 
 /// Firebase Crashlytics-based implementation of [LoggerProvider].
 ///
@@ -20,6 +21,7 @@ class FirebaseLoggerProvider implements LoggerProvider {
   @override
   Future<void> initialize() async {
     _crashlytics ??= FirebaseCrashlytics.instance;
+    await _crashlytics!.setCrashlyticsCollectionEnabled(!kDebugMode);
     _initialized = true;
   }
 
