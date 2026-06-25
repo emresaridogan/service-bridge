@@ -5,9 +5,10 @@ import 'package:service_bridge_core/service_bridge_core.dart';
 /// Firebase Crashlytics implementation of [CrashReporter].
 class FirebaseCrashReporter implements CrashReporter {
   /// Creates a [FirebaseCrashReporter].
-  FirebaseCrashReporter({FirebaseCrashlytics? crashlytics}) : _crashlytics = crashlytics;
+  FirebaseCrashReporter({FirebaseCrashlytics? crashlytics, this.environment}) : _crashlytics = crashlytics;
 
   FirebaseCrashlytics? _crashlytics;
+  final String? environment;
   bool _initialized = false;
 
   @override
@@ -20,6 +21,9 @@ class FirebaseCrashReporter implements CrashReporter {
   Future<void> initialize() async {
     _crashlytics ??= FirebaseCrashlytics.instance;
     await _crashlytics!.setCrashlyticsCollectionEnabled(!kDebugMode);
+    if (environment != null) {
+      await _crashlytics!.setCustomKey('environment', environment!);
+    }
     _initialized = true;
   }
 

@@ -48,11 +48,12 @@ class SentryProviderBundle {
   /// **Note**: Do NOT use `SentryFlutter.init`'s `appRunner` parameter
   /// when using ServiceBridge. ServiceBridge manages error routing
   /// via its own global error handlers.
-  static Future<SentryProviderBundle> initialize({required String dsn, double tracesSampleRate = 1.0}) async {
+  static Future<SentryProviderBundle> initialize({required String dsn, required String environment, double tracesSampleRate = 1.0}) async {
     if (kDebugMode) debugPrint('[ServiceBridge] Initializing Sentry...');
     await SentryFlutter.init((options) {
       options
         ..dsn = dsn
+        ..environment = environment
         ..tracesSampleRate = tracesSampleRate;
     });
     if (kDebugMode) debugPrint('[ServiceBridge] Sentry initialized');
