@@ -51,14 +51,17 @@ class FirebaseProviderBundle {
   ///
   /// Pass [options] to customize the [Firebase.initializeApp] call
   /// (e.g. when using `DefaultFirebaseOptions`).
-  static Future<FirebaseProviderBundle> initialize({
+  static Future<FirebaseProviderBundle?> initialize({
     FirebaseOptions? options,
     Map<String, dynamic>? remoteConfigDefaults,
     Duration remoteConfigFetchTimeout = const Duration(seconds: 10),
     Duration remoteConfigMinimumFetchInterval = const Duration(seconds: 10),
     String? environment,
   }) async {
-    if (kDebugMode) debugPrint('[ServiceBridge] Initializing Firebase Core...');
+    if (kDebugMode) {
+      debugPrint('[ServiceBridge] Debug mode detected, skipping Firebase init');
+      return null;
+    }
     await Firebase.initializeApp(options: options);
     if (kDebugMode) debugPrint('[ServiceBridge] Firebase Core initialized');
 

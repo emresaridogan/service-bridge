@@ -87,6 +87,9 @@ class SentryCrashReporter implements CrashReporter {
 
   @override
   Future<void> setUserId(String userId) async {
+    if (kDebugMode) {
+      return;
+    }
     Sentry.configureScope((scope) {
       scope.setUser(SentryUser(id: userId));
     });
@@ -94,6 +97,9 @@ class SentryCrashReporter implements CrashReporter {
 
   @override
   Future<void> setCustomKey(String key, dynamic value) async {
+    if (kDebugMode) {
+      return;
+    }
     Sentry.configureScope((scope) {
       scope.setContexts(key, value);
     });
@@ -101,6 +107,9 @@ class SentryCrashReporter implements CrashReporter {
 
   @override
   Future<void> recordBreadcrumb(String message, {String? category, Map<String, dynamic>? data}) async {
+    if (kDebugMode) {
+      return;
+    }
     await Sentry.addBreadcrumb(Breadcrumb(message: message, category: category, data: data));
   }
 
