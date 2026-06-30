@@ -19,8 +19,12 @@ class FirebaseCrashReporter implements CrashReporter {
 
   @override
   Future<void> initialize() async {
+    if (kDebugMode) {
+      _initialized = true;
+      return;
+    }
     _crashlytics ??= FirebaseCrashlytics.instance;
-    await _crashlytics!.setCrashlyticsCollectionEnabled(!kDebugMode);
+    await _crashlytics!.setCrashlyticsCollectionEnabled(true);
     if (environment != null) {
       await _crashlytics!.setCustomKey('environment', environment!);
     }
@@ -34,6 +38,7 @@ class FirebaseCrashReporter implements CrashReporter {
 
   @override
   Future<void> reportError(Object error, StackTrace stackTrace, {Map<String, dynamic>? extras, SeverityLevel? level}) async {
+    if (kDebugMode) return;
     if (extras != null) {
       for (final entry in extras.entries) {
         await _crashlytics!.setCustomKey(entry.key, entry.value.toString());
@@ -44,21 +49,25 @@ class FirebaseCrashReporter implements CrashReporter {
 
   @override
   Future<void> reportMessage(String message, {SeverityLevel level = SeverityLevel.info, Map<String, dynamic>? extras}) async {
+    if (kDebugMode) return;
     await _crashlytics!.log(message);
   }
 
   @override
   Future<void> setUserId(String userId) async {
+    if (kDebugMode) return;
     await _crashlytics!.setUserIdentifier(userId);
   }
 
   @override
   Future<void> setCustomKey(String key, dynamic value) async {
+    if (kDebugMode) return;
     await _crashlytics!.setCustomKey(key, value.toString());
   }
 
   @override
   Future<void> recordBreadcrumb(String message, {String? category, Map<String, dynamic>? data}) async {
+    if (kDebugMode) return;
     final logMessage = category != null ? '[$category] $message' : message;
     await _crashlytics!.log(logMessage);
   }

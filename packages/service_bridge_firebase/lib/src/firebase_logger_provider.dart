@@ -20,8 +20,12 @@ class FirebaseLoggerProvider implements LoggerProvider {
 
   @override
   Future<void> initialize() async {
+    if (kDebugMode) {
+      _initialized = true;
+      return;
+    }
     _crashlytics ??= FirebaseCrashlytics.instance;
-    await _crashlytics!.setCrashlyticsCollectionEnabled(!kDebugMode);
+    await _crashlytics!.setCrashlyticsCollectionEnabled(true);
     _initialized = true;
   }
 
