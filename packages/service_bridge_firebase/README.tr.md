@@ -1,7 +1,7 @@
 # service_bridge_firebase
 
 [![Pub Version](https://img.shields.io/pub/v/service_bridge_firebase.svg)](https://pub.dev/packages/service_bridge_firebase)
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/emresaridogan/service_bridge/blob/main/LICENSE)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/gitunes/dt-service-bridge/blob/main/LICENSE)
 
 [Service Bridge](https://pub.dev/packages/service_bridge_core) ekosistemi için Firebase sağlayıcı uygulamaları. Firebase Analytics, Crashlytics, Remote Config, Cloud Messaging ve Crashlytics üzerinden loglama için kullanıma hazır entegrasyonlar sağlar.
 
@@ -237,6 +237,6 @@ Bu paket aşağıdaki Firebase paketlerine bağımlıdır:
 
 ## Ek Bilgiler
 
-- **Repository:** [github.com/emresaridogan/service_bridge](https://github.com/emresaridogan/service_bridge)
-- **Sorunlar:** [GitHub Issues](https://github.com/emresaridogan/service_bridge/issues)
+- **Repository:** [github.com/emresaridogan/service_bridge](https://github.com/gitunes/dt-service-bridge)
+- **Sorunlar:** [GitHub Issues](https://github.com/gitunes/dt-service-bridge/issues)
 - **Lisans:** MIT

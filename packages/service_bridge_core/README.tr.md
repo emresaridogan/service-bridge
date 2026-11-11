@@ -1,7 +1,7 @@
 # service_bridge_core
 
 [![Pub Version](https://img.shields.io/pub/v/service_bridge_core.svg)](https://pub.dev/packages/service_bridge_core)
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/emresaridogan/service_bridge/blob/main/LICENSE)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/gitunes/dt-service-bridge/blob/main/LICENSE)
 
 **Service Bridge** ekosistemi için temel sözleşmeler (contracts), manager'lar, modeller ve yardımcı araçlar — Flutter uygulamaları için modüler, çok sağlayıcılı bir servis yönetim katmanı.
 
@@ -269,6 +269,6 @@ class OzelAnalitiSaglayici implements AnalyticsProvider {
 
 ## Ek Bilgiler
 
-- **Repository:** [github.com/emresaridogan/service_bridge](https://github.com/emresaridogan/service_bridge)
-- **Sorunlar:** [GitHub Issues](https://github.com/emresaridogan/service_bridge/issues)
+- **Repository:** [github.com/emresaridogan/service_bridge](https://github.com/gitunes/dt-service-bridge)
+- **Sorunlar:** [GitHub Issues](https://github.com/gitunes/dt-service-bridge/issues)
 - **Lisans:** MIT

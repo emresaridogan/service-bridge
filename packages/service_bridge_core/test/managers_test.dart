@@ -101,6 +101,16 @@ void main() {
       expect(provider1.screenViews, contains('HomeScreen'));
       expect(provider2.screenViews, contains('HomeScreen'));
     });
+
+    test('setUserId sets and clears user id on all providers', () async {
+      await manager.setUserId('user-42');
+      expect(provider1.userId, 'user-42');
+      expect(provider2.userId, 'user-42');
+
+      await manager.setUserId(null);
+      expect(provider1.userId, isNull);
+      expect(provider2.userId, isNull);
+    });
   });
 
   group('LogManager', () {

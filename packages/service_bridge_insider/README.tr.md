@@ -1,7 +1,7 @@
 # service_bridge_insider
 
 [![Pub Version](https://img.shields.io/pub/v/service_bridge_insider.svg)](https://pub.dev/packages/service_bridge_insider)
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/emresaridogan/service_bridge/blob/main/LICENSE)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/gitunes/dt-service-bridge/blob/main/LICENSE)
 
 > **⚠️ Deneysel:** Bu paket stub uygulamaları içerir. Insider Flutter SDK entegrasyonu henüz tam olarak bağlanmamıştır. Metot gövdeleri, resmi Insider SDK bağımlılığını bekleyen yer tutuculardır.
 
@@ -115,6 +115,6 @@ await sb.userTracking.logout();
 
 ## Ek Bilgiler
 
-- **Repository:** [github.com/emresaridogan/service_bridge](https://github.com/emresaridogan/service_bridge)
-- **Sorunlar:** [GitHub Issues](https://github.com/emresaridogan/service_bridge/issues)
+- **Repository:** [github.com/emresaridogan/service_bridge](https://github.com/gitunes/dt-service-bridge)
+- **Sorunlar:** [GitHub Issues](https://github.com/gitunes/dt-service-bridge/issues)
 - **Lisans:** MIT

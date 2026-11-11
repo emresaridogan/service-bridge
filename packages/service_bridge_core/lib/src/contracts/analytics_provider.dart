@@ -9,7 +9,9 @@ abstract class AnalyticsProvider extends BaseServiceProvider {
   Future<void> logEvent(String name, {Map<String, dynamic>? parameters});
 
   /// Associate a user ID with analytics events.
-  Future<void> setUserId(String userId);
+  ///
+  /// Pass `null` to clear the current user ID (e.g. on logout).
+  Future<void> setUserId(String? userId);
 
   /// Set a user property for segmentation.
   Future<void> setUserProperty({required String name, required String value});

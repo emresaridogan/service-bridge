@@ -4,9 +4,9 @@ description: >-
   ecosystem. Defines unified abstractions for analytics, crash reporting,
   push notifications, remote config, logging, deep links, and user tracking.
 version: 1.0.0
-homepage: https://github.com/emresaridogan/service_bridge
-repository: https://github.com/emresaridogan/service_bridge/tree/main/packages/service_bridge_core
-issue_tracker: https://github.com/emresaridogan/service_bridge/issues
+homepage: https://github.com/gitunes/dt-service-bridge
+repository: https://github.com/gitunes/dt-service-bridge/tree/main/packages/service_bridge_core
+issue_tracker: https://github.com/gitunes/dt-service-bridge/issues
 
 topics:
   - service-manager

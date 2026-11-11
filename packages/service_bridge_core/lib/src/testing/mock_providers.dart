@@ -85,6 +85,9 @@ class MockAnalyticsProvider with MockServiceProviderMixin implements AnalyticsPr
   /// Recorded screen views for verification.
   final List<String> screenViews = [];
 
+  /// Last user ID set via [setUserId] (`null` when cleared).
+  String? userId;
+
   @override
   String get providerId => 'mock_analytics';
 
@@ -94,7 +97,9 @@ class MockAnalyticsProvider with MockServiceProviderMixin implements AnalyticsPr
   }
 
   @override
-  Future<void> setUserId(String userId) async {}
+  Future<void> setUserId(String? userId) async {
+    this.userId = userId;
+  }
 
   @override
   Future<void> setUserProperty({required String name, required String value}) async {}

@@ -1,3 +1,7 @@
+## Unreleased
+
+- `AnalyticsProvider.setUserId` / `AnalyticsManager.setUserId` now accept `null` to clear the user ID (e.g. on logout). Custom `AnalyticsProvider` implementations must update the parameter type to `String?`.
+
 ## 1.0.0
 
 - Initial release

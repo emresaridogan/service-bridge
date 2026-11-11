@@ -1,7 +1,7 @@
 # service_bridge_huawei
 
 [![Pub Version](https://img.shields.io/pub/v/service_bridge_huawei.svg)](https://pub.dev/packages/service_bridge_huawei)
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/emresaridogan/service_bridge/blob/main/LICENSE)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/gitunes/dt-service-bridge/blob/main/LICENSE)
 
 > **⚠️ Deneysel:** Bu paket stub uygulamaları içerir. Huawei HMS SDK bağımlılıkları yorum satırına alınmıştır. Metot gövdeleri, HMS SDK entegrasyonunu bekleyen yer tutuculardır.
 
@@ -125,6 +125,6 @@ await sb.pushNotification.subscribeToTopic('haberler');
 
 ## Ek Bilgiler
 
-- **Repository:** [github.com/emresaridogan/service_bridge](https://github.com/emresaridogan/service_bridge)
-- **Sorunlar:** [GitHub Issues](https://github.com/emresaridogan/service_bridge/issues)
+- **Repository:** [github.com/emresaridogan/service_bridge](https://github.com/gitunes/dt-service-bridge)
+- **Sorunlar:** [GitHub Issues](https://github.com/gitunes/dt-service-bridge/issues)
 - **Lisans:** MIT

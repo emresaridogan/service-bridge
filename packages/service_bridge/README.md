@@ -1,6 +1,6 @@
 # service_bridge
 
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/emresaridogan/service_bridge/blob/main/LICENSE)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/gitunes/dt-service-bridge/blob/main/LICENSE)
 
 Umbrella package that re-exports [service_bridge_core](https://pub.dev/packages/service_bridge_core) and all provider sub-packages for convenient single-import usage.
 
@@ -87,6 +87,6 @@ Future<void> main() async {
 
 ## Additional Information
 
-- **Repository:** [github.com/emresaridogan/service_bridge](https://github.com/emresaridogan/service_bridge)
-- **Issues:** [GitHub Issues](https://github.com/emresaridogan/service_bridge/issues)
+- **Repository:** [github.com/emresaridogan/service_bridge](https://github.com/gitunes/dt-service-bridge)
+- **Issues:** [GitHub Issues](https://github.com/gitunes/dt-service-bridge/issues)
 - **License:** MIT

@@ -1,7 +1,7 @@
 # service_bridge_insider
 
 [![Pub Version](https://img.shields.io/pub/v/service_bridge_insider.svg)](https://pub.dev/packages/service_bridge_insider)
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/emresaridogan/service_bridge/blob/main/LICENSE)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/gitunes/dt-service-bridge/blob/main/LICENSE)
 
 > **⚠️ Experimental:** This package contains stub implementations. The Insider Flutter SDK integration is not yet fully wired. Method bodies are placeholders awaiting the official Insider SDK dependency.
 
@@ -115,6 +115,6 @@ await sb.userTracking.logout();
 
 ## Additional Information
 
-- **Repository:** [github.com/emresaridogan/service_bridge](https://github.com/emresaridogan/service_bridge)
-- **Issues:** [GitHub Issues](https://github.com/emresaridogan/service_bridge/issues)
+- **Repository:** [github.com/emresaridogan/service_bridge](https://github.com/gitunes/dt-service-bridge)
+- **Issues:** [GitHub Issues](https://github.com/gitunes/dt-service-bridge/issues)
 - **License:** MIT

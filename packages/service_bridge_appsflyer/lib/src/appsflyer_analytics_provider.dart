@@ -44,8 +44,9 @@ class AppsFlyerAnalyticsProvider implements AnalyticsProvider {
   }
 
   @override
-  Future<void> setUserId(String userId) async {
-    _sdk?.setCustomerUserId(userId);
+  Future<void> setUserId(String? userId) async {
+    // AppsFlyer has no explicit clear; an empty id resets the customer user id.
+    _sdk?.setCustomerUserId(userId ?? '');
   }
 
   @override

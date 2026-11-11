@@ -36,7 +36,7 @@ class FirebaseAnalyticsProvider implements AnalyticsProvider {
   }
 
   @override
-  Future<void> setUserId(String userId) async {
+  Future<void> setUserId(String? userId) async {
     await _analytics!.setUserId(id: userId);
   }
 

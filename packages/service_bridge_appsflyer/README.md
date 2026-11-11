@@ -1,7 +1,7 @@
 # service_bridge_appsflyer
 
 [![Pub Version](https://img.shields.io/pub/v/service_bridge_appsflyer.svg)](https://pub.dev/packages/service_bridge_appsflyer)
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/emresaridogan/service_bridge/blob/main/LICENSE)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/gitunes/dt-service-bridge/blob/main/LICENSE)
 
 AppsFlyer provider implementations for the [Service Bridge](https://pub.dev/packages/service_bridge_core) ecosystem. Provides analytics, deep link handling, and user tracking integrations via the AppsFlyer SDK.
 
@@ -139,6 +139,6 @@ await sb.userTracking.trackEvent('viewed_offer', parameters: {'offer_id': '99'})
 
 ## Additional Information
 
-- **Repository:** [github.com/emresaridogan/service_bridge](https://github.com/emresaridogan/service_bridge)
-- **Issues:** [GitHub Issues](https://github.com/emresaridogan/service_bridge/issues)
+- **Repository:** [github.com/emresaridogan/service_bridge](https://github.com/gitunes/dt-service-bridge)
+- **Issues:** [GitHub Issues](https://github.com/gitunes/dt-service-bridge/issues)
 - **License:** MIT

@@ -22,7 +22,9 @@ class AnalyticsManager {
   }
 
   /// Set user ID on all active analytics providers.
-  Future<void> setUserId(String userId, {Set<SBProvider>? only, Set<SBProvider>? exclude}) async {
+  ///
+  /// Pass `null` to clear the current user ID (e.g. on logout).
+  Future<void> setUserId(String? userId, {Set<SBProvider>? only, Set<SBProvider>? exclude}) async {
     final targets = ProviderResolver.resolve(_providers, defaultProviders: _defaultProviders, only: only, exclude: exclude);
     await Future.wait(targets.map((p) => p.setUserId(userId)));
   }

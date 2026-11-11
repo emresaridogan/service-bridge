@@ -34,7 +34,7 @@ class InsiderAnalyticsProvider implements AnalyticsProvider {
   }
 
   @override
-  Future<void> setUserId(String userId) async {
+  Future<void> setUserId(String? userId) async {
     // TODO: Insider.Instance.getCurrentUser()?.setIdentifier(userId);
   }
 

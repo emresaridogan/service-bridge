@@ -1,7 +1,7 @@
 # service_bridge_sentry
 
 [![Pub Version](https://img.shields.io/pub/v/service_bridge_sentry.svg)](https://pub.dev/packages/service_bridge_sentry)
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/emresaridogan/service_bridge/blob/main/LICENSE)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/gitunes/dt-service-bridge/blob/main/LICENSE)
 
 Sentry provider implementations for the [Service Bridge](https://pub.dev/packages/service_bridge_core) ecosystem. Provides crash reporting and structured logging via the Sentry SDK.
 
@@ -128,6 +128,6 @@ Logs are sent as Sentry breadcrumbs. When an error and stack trace are provided,
 
 ## Additional Information
 
-- **Repository:** [github.com/emresaridogan/service_bridge](https://github.com/emresaridogan/service_bridge)
-- **Issues:** [GitHub Issues](https://github.com/emresaridogan/service_bridge/issues)
+- **Repository:** [github.com/emresaridogan/service_bridge](https://github.com/gitunes/dt-service-bridge)
+- **Issues:** [GitHub Issues](https://github.com/gitunes/dt-service-bridge/issues)
 - **License:** MIT

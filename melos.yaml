@@ -1,5 +1,5 @@
 name: service_bridge
-repository: https://github.com/emresaridogan/service_bridge
+repository: https://github.com/gitunes/dt-service-bridge
 
 packages:
   - packages/**
